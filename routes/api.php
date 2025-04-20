@@ -15,4 +15,8 @@ Route::post('login-user' , [AuthController::class , 'login'])->middleware([ApiLo
 Route::post('register-user' , [AuthController::class , 'register'])->middleware([ApiLocalization::class]);
 
 Route::post('logout-user',[AuthController::class , 'logout'])->middleware(['auth:api' , ApiLocalization::class]);
+
+Route::post('verify-email-code' , [AuthController::class , 'verifyEmail'])->middleware(['auth:api' , ApiLocalization::class]);
+
+Route::get('/verify-email', [AuthController::class, 'verifyEmailLink']);
 // Route::get('check-token' , [AuthController::class , 'check'])->middleware('auth:api');
