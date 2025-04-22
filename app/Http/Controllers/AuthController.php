@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 use App\Http\Resources\UserResource;
 use App\Mail\VarificationEmail;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
+use Laravel\Socialite\Facades\Socialite;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
@@ -206,5 +209,57 @@ class AuthController extends Controller
             ], 500);
         }
     }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+    public function redirectToGoogle()
+    {
+        try{
+        return Socialite::driver('google')->redirect();
+
+        }catch(Exception $e)
+        {
+            dd($e->getMessage());
+        }
+    }
+
+    public function handelCallback()
+    {
+        // try
+        // {
+            // $user=Socialite::driver('google')->user();
+            $user=Socialite::driver('google')->user();
+            $finduser= User::where('social_id' , $user->id)->first();
+
+            if($finduser)
+            {
+                Auth::login($finduser);
+                return response()->json(['message' => 'homee' , 'user' => $finduser]);
+            }else
+            {
+                $newUser = User::create([
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'social_id' => $user->id,
+                    'social_type' => 'google',
+                    'password' => Hash::make('my-google'),
+                    'phone' => '09324423373',
+                    'gender' => 'male'
+                ]);
+                Auth::login($newUser);
+                return response()->json(['message' => 'hom' , 'user' => $newUser]);
+
+            }
+        // }catch(Exception $e)
+        // {
+            // dd('exception');
+        // }
+    }
+
+
 
 }

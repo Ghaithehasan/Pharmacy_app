@@ -22,6 +22,15 @@ return new class extends Migration
             $table->string('verification_code')->nullable();
             $table->boolean('is_verified')->default(false);
             $table->rememberToken();
+
+
+            // ----------------------------------------------
+            $table->string('social_id')->nullable();
+            $table->string('social_type')->nullable();
+            // ----------------------------------------------
+
+
+
             $table->timestamps();
         });
 
