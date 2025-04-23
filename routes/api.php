@@ -19,4 +19,9 @@ Route::post('logout-user',[AuthController::class , 'logout'])->middleware(['auth
 Route::post('verify-email-code' , [AuthController::class , 'verifyEmail'])->middleware(['auth:api' , ApiLocalization::class]);
 
 Route::get('/verify-email', [AuthController::class, 'verifyEmailLink']);
+
+Route::get('auth/google' , [AuthController::class , 'redirectToGoogle']);
+
+Route::get('auth/google/callback' , [AuthController::class , 'handleGoogleCallback']);
+
 // Route::get('check-token' , [AuthController::class , 'check'])->middleware('auth:api');

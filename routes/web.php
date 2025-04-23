@@ -12,5 +12,5 @@ Route::get('/', function () {
 
 
 Route::get('auth/google' , [AuthController::class , 'redirectToGoogle']);
-Route::get('auth/google/callback' , [AuthController::class , 'handelCallback']);
+Route::get('auth/google/callback' , [AuthController::class , 'handleGoogleCallback']);
 

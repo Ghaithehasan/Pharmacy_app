@@ -218,48 +218,74 @@ class AuthController extends Controller
 
     public function redirectToGoogle()
     {
-        try{
-        return Socialite::driver('google')->redirect();
-
-        }catch(Exception $e)
-        {
-            dd($e->getMessage());
+        try {
+            return Socialite::driver('google')->stateless()->redirect();
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Internal Server Error'] , 500);
         }
     }
 
-    public function handelCallback()
-    {
-        // try
-        // {
-            // $user=Socialite::driver('google')->user();
-            $user=Socialite::driver('google')->user();
-            $finduser= User::where('social_id' , $user->id)->first();
+    public function handleGoogleCallback()
+{
+    try {
+        $googleUser = Socialite::driver('google')->stateless()->user();
 
-            if($finduser)
-            {
-                Auth::login($finduser);
-                return response()->json(['message' => 'homee' , 'user' => $finduser]);
-            }else
-            {
-                $newUser = User::create([
-                    'name' => $user->name,
-                    'email' => $user->email,
-                    'social_id' => $user->id,
-                    'social_type' => 'google',
-                    'password' => Hash::make('my-google'),
-                    'phone' => '09324423373',
-                    'gender' => 'male'
-                ]);
-                Auth::login($newUser);
-                return response()->json(['message' => 'hom' , 'user' => $newUser]);
+        // البحث عن المستخدم
+        $findUser = User::where('social_id', $googleUser->id)->first();
 
-            }
-        // }catch(Exception $e)
-        // {
-            // dd('exception');
-        // }
+        if ($findUser) {
+            Auth::login($findUser);
+
+            $findUser->is_verified=true;
+            // توليد JWT Token للمستخدم
+            $token = JWTAuth::fromUser($findUser);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'مرحباً بعودتك!',
+                'token' => $token, // التوكن
+                'user' => $findUser,
+                'status_code' => 200
+            ], 200);
+        } else {
+            // معلومات إضافية للمستخدم الجديد
+            $phone = null; // الهاتف غير مدعوم من Google بشكل مباشر
+            $gender = null; // الجندر غير متوفر في OAuth افتراضياً
+            $is_verified=true;
+            // إنشاء مستخدم جديد
+            $newUser = User::create([
+                'name' => $googleUser->name,
+                'email' => $googleUser->email,
+                'social_id' => $googleUser->id,
+                'social_type' => 'google',
+                'password' => Hash::make(Str::random(8)), // كلمة مرور عشوائية
+                'phone' => $phone,
+                'gender' => $gender,
+                'is_verified' => $is_verified,
+                'email_verified_at'=> now()
+            ]);
+
+            Auth::login($newUser);
+
+            // توليد JWT Token للمستخدم الجديد
+            $token = JWTAuth::fromUser($newUser);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'تم تسجيلك بنجاح!',
+                'token' => $token, // التوكن
+                'user' => $newUser,
+                'status_code' => 200
+            ], 200);
+        }
+    } catch (Exception $e) {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'حدث خطأ أثناء تسجيل الدخول',
+            'details' => $e->getMessage(),
+        ], 500);
     }
-
+}
 
 
 }
