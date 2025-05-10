@@ -154,7 +154,7 @@ $role->syncPermissions($permissionNames);
 return response()->json(['status' => 'sucseess' , 'role' => $role , 'permissions' => $permissionNames , 'status_code' => 200] , 200);
 }
 
-public function destroy(Request $request, $id)
+public function destroy($id)
 {
     try {
         // ✅ البحث عن الدور أو إرسال خطأ تلقائيًا إذا لم يكن موجودًا
@@ -189,6 +189,31 @@ public function destroy(Request $request, $id)
             'message' => __('messages.role_not_found'),
             'status_code' => 404
         ], 404);
+    }
+}
+
+
+
+public function getAllPermissions(Request $request)
+{
+    try {
+        // ✅ جلب جميع الصلاحيات بترتيب تصاعدي
+        $permissions = Permission::orderBy('id', 'ASC')->get();
+
+        // ✅ تجهيز استجابة JSON منظمة
+        return response()->json([
+            'status' => 'success',
+            'message' => __('messages.permissions_list'),
+            'data' => $permissions->pluck('name' , 'id'), // جلب أسماء الصلاحيات فقط
+            'status_code' => 200
+        ], 200);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 'error',
+            'message' => __('messages.permissions_list_failed'),
+            'status_code' => 500
+        ], 500);
     }
 }
 }

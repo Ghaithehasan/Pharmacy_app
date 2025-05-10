@@ -39,5 +39,7 @@ return [
     'role_not_found' => '❌ Role not found.',
     'roles_list' => '✅ Roles list retrieved successfully!',
     'roles_list_failed' => '❌ Failed to retrieve roles list, please try again later.',
+    'permissions_list' => '✅ Permissions list retrieved successfully!',
+    'permissions_list_failed' => '❌ Failed to retrieve permissions list, please try again later.',
 
 ];

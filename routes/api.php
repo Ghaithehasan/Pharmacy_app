@@ -30,6 +30,7 @@ Route::apiResource('users' , UserController::class)->middleware([ApiLocalization
 
 Route::apiResource('roles' , RoleController::class)->middleware([ApiLocalization::class]);
 
+Route::get('show-all-permissions' , [RoleController::class , 'getAllPermissions'])->middleware([ApiLocalization::class]);
 
 
 
