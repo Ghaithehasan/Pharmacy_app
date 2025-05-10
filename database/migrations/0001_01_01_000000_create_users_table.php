@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('phone')->unique()->nullable();
             $table->enum('gender' , ['male' , 'female'])->nullable();
+            // $table->text('roles');
             $table->string('verification_code')->nullable();
             $table->boolean('is_verified')->default(false);
             $table->rememberToken();

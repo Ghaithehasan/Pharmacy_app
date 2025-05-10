@@ -23,5 +23,21 @@ return [
     'invalid_token' => 'Invalid token.',
     'already_verified' => 'Email has already been verified.',
     // 'server_error' => 'A server error occurred, please try again later.'
+    'users_empty' => 'There Is No Users',
+    'user_created' => '✅ User created successfully!',
+    'user_creation_failed' => '❌ Failed to create user, please try again later.',
+    'user_deleted' => '✅ User deleted successfully!',
+    'user_not_found' => '❌ User not found.',
+    'delete_admin_error' => '⚠️ You cannot delete a user with Super Admin privileges.',
+    'role_created' => 'role was created successfully',
+    'user_updated' => '✅ User updated successfully!',
+    'user_update_failed' => '❌ Failed to update user, please try again later.',
+    'role_deleted' => '✅ Role deleted successfully!',
+    'role_not_found' => '❌ Role not found.',
+    'role_has_users' => '⚠️ This role cannot be deleted because it is assigned to users.',
+    'role_found' => '✅ Role found!',
+    'role_not_found' => '❌ Role not found.',
+    'roles_list' => '✅ Roles list retrieved successfully!',
+    'roles_list_failed' => '❌ Failed to retrieve roles list, please try again later.',
 
 ];

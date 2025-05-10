@@ -12,6 +12,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/socialite": "^5.19",
         "laravel/tinker": "^2.10.1",
+        "spatie/laravel-permission": "^6.17",
         "twilio/sdk": "^8.5",
         "tymon/jwt-auth": "^2.2"
     },
