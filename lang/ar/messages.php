@@ -41,5 +41,12 @@ return [
         'roles_list_failed' => '❌ فشل في جلب قائمة الأدوار، يرجى المحاولة لاحقًا.',
         'permissions_list' => '✅ قائمة الصلاحيات تم جلبها بنجاح!',
         'permissions_list_failed' => '❌ فشل في جلب قائمة الصلاحيات، يرجى المحاولة لاحقًا.',
+          'supplier_created' => 'تم إضافة المورد بنجاح!',
+    'supplier_creation_failed' => 'حدث خطأ أثناء إضافة المورد.',
+    'supplier_deleted_successfully' => 'تم حذف المورد بنجاح',
+    'supplier_not_found' => '❌ المورد غير موجود.',
+    'supplier_update_failed' => '❌ فشل في تحديث المورد، يرجى المحاولة لاحقًا.',
+    'supplier_updated' => '✅ تم تحديث المورد بنجاح!',
+    'supplier_found' => '✅ تم العثور على المورد!',
+    'medicine_created' => '✅ تم إنشاء الدواء بنجاح!',
 ];
-

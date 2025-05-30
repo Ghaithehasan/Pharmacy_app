@@ -41,5 +41,13 @@ return [
     'roles_list_failed' => '❌ Failed to retrieve roles list, please try again later.',
     'permissions_list' => '✅ Permissions list retrieved successfully!',
     'permissions_list_failed' => '❌ Failed to retrieve permissions list, please try again later.',
-
+       'supplier_created' => 'Supplier added successfully!',
+    'supplier_creation_failed' => 'An error occurred while adding the supplier.',
+    'supplier_deleted_successfully' => 'Supplier has been successfully deleted',
+    'error_deleting_supplier' => 'An error occurred while deleting the supplier',
+    'supplier_not_found' => '❌ Supplier not found.',
+    'supplier_update_failed' => '❌ Failed to update the supplier, please try again later.',
+    'supplier_updated' => '✅ Supplier updated successfully!',
+    'supplier_found' => '✅ Supplier found!',
+    'medicine_created' => '✅ Medicine created successfully!',
 ];

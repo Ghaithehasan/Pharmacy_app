@@ -1,0 +1,1 @@
+'supplier_deleted_successfully' => 'Supplier has been successfully deleted', 

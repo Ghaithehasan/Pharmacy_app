@@ -3,7 +3,10 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\MedicineController;
+use App\Http\Controllers\DamagedMedicineController;
 use App\Http\Middleware\ApiLocalization;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,7 +33,27 @@ Route::apiResource('users' , UserController::class)->middleware([ApiLocalization
 
 Route::apiResource('roles' , RoleController::class)->middleware([ApiLocalization::class]);
 
+Route::apiResource('suppliers' , SupplierController::class)->middleware([ApiLocalization::class]);
+
+Route::post('add-alternative-medicines/{medicineId}' , [MedicineController::class, 'storeAlternative'])->middleware([ApiLocalization::class]);
+
+Route::post('delete-alternative-medicines/{medicineId}' , [MedicineController::class, 'removeAlternative'])->middleware([ApiLocalization::class]);
+
+Route::get('show-all-alternatives/{medicineId}',[MedicineController::class , 'showAllAlternatives'])->middleware([ApiLocalization::class]);
+
+Route::get('show-damaged-medicine', [DamagedMedicineController::class, 'searchByBarcode'])->middleware([ApiLocalization::class]);
+
+Route::post('add-damaged-medicine', [DamagedMedicineController::class, 'store'])->middleware([ApiLocalization::class]);
+
+Route::apiResource('medicines' , MedicineController::class)->middleware([ApiLocalization::class]);
+
+Route::get('generaite-barcode', [MedicineController::class, 'generateNumericBarcode'])->middleware([ApiLocalization::class]);
+
+
+Route::get('show-supplier-details/{id}',[SupplierController::class , 'ShowSupplierDetails'])->middleware([ApiLocalization::class]);
+
 Route::get('show-all-permissions' , [RoleController::class , 'getAllPermissions'])->middleware([ApiLocalization::class]);
+
 
 
 

@@ -14,14 +14,19 @@ return new class extends Migration
         Schema::create('medicines', function (Blueprint $table) {
             $table->id();
             $table->string('medicine_name')->unique();
-            $table->text('description')->nullable();
-            $table->date('expiration_date')->nullable();
+            $table->string('sentific_name')->nullable();
+            $table->string('arabic_name')->nullable();
+            $table->string('bar_code');
+            $table->enum('type',['package','unit']);
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('categories')->cascadeOnDelete()->cascadeOnUpdate();
             $table->integer('quantity');
-            $table->decimal('price', 8, 2);
-            $table->unsignedBigInteger('department_id');
-            $table->foreign('department_id')->references('id')->on('departments')->cascadeOnDelete()->cascadeOnUpdate();
-            // $table->unsignedBigInteger('supplier_id')->nullable();
-            // $table->foreign('supplier_id')->references('id')->on('suppliers')->nullOnDelete()->cascadeOnUpdate();
+            $table->integer('alert_quantity')->default(10);
+            $table->decimal('people_price', 8, 2);
+            $table->decimal('supplier_price', 8, 2);
+            $table->decimal('tax_rate', 5, 2);
+            $table->date('expiry_date');
+            $table->json('alternative_ids')->nullable();
             $table->timestamps();
         });
     }
