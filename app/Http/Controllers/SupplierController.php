@@ -161,6 +161,7 @@ class SupplierController extends Controller
     
     public function store(Request $request)
     {
+        // dd(app()->getLocale());
         // ✅ 1️⃣ تحقق من صحة الإدخال (Validation)
         $validatedData = $request->validate([
             'company_name' => 'required|string|max:50|unique:suppliers,company_name',

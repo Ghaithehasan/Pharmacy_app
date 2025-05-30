@@ -15,7 +15,6 @@ class ApiLocalization
      */
     public function handle(Request $request, Closure $next): Response
     {
-// dd();
         $local = $request->header('Accept-Language')?$request->header('Accept-Language'):'en';
         // dd($local);
         if($local)
